@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-orange my-5 text-center">
+        {{ ricetta?.nome_ricetta }}
+      </h1>
+      <div class="col-12 d-flex fs-4">
+        <div class="col-6">
+          <img
+            src="{{ ricetta?.immagine }}"
+            [alt]="[ricetta?.nome_ricetta]"
+            class="img-fluid rounded-5 mb-3"
+          />
+          <button
+            *ngIf="isUserLogged"
+            class="btn bg-blue spesa me-4"
+            (click)="toggleFavorite()"
+          >
+            {{ !isFavorite ? "Aggiungi ai preferiti" : "Togli dai preferiti" }}
+          </button>
+          <span *ngIf="isUserLogged">
+            <img
+              *ngIf="isFavorite"
+              src="../../../assets/Img/heartFill.png"
+              alt="Heart"
+              width="30px" />
+
+            <img
+              *ngIf="!isFavorite"
+              src="../../../assets/Img/heart.png"
+              alt="Heart"
+              width="30px"
+          /></span>
+        </div>
+        <div class="col-6 ps-4 pt-5">
+          <p class="text-orange">
+            Difficoltà:
+            <span class="text-blue fst-italic">{{ ricetta?.difficolta }}</span>
+          </p>
+          <p class="text-orange">
+            <i class="bi bi-alarm-fill text-orange"></i>
+            Tempo preparazione:
+            <span class="text-blue fst-italic">
+              {{ ricetta?.tempo_preparazione }} min</span
+            >
+          </p>
+          <p class="text-orange">
+            <i class="bi bi-cake2-fill text-orange"></i>
+            Dosi per
+            <span class="text-blue fst-italic">
+              {{ ricetta?.porzioni }} persone</span
+            >
+          </p>
+          <p class="text-orange">
+            <i class="bi bi-aspect-ratio-fill text-orange"></i>
+            Tempo cottura
+            <span class="text-blue fst-italic">
+              {{ ricetta?.tempo_cottura }} min</span
+            >
+          </p>
+        </div>
+      </div>
+      <h2 class="text-orange my-5">Ingredienti</h2>
+      <div class="col-12 d-flex">
+        <div class="col-6 ps-0">
+          <ul *ngIf="ricetta?.ingredienti" class="list-unstyled">
+            <li
+              *ngFor="let i of ricetta?.ingredienti"
+              class="mb-4 text-blue my-2"
+            >
+              <button
+                *ngIf="isUserLogged"
+                class="btn bg-blue spesa me-2"
+                (click)="addIngredient(i.ingrediente, i.quantita)"
+              >
+                <i class="bi bi-cart text-dark"></i>
+              </button>
+              {{ i.ingrediente }} - {{ i.quantita }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-4">
+          <img
+            src="../../../assets/Img/immagine.png"
+            alt="logo"
+            class="img-fluid ps-5 d-none d-sm-block"
+          />
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-orange mt-5">Preparazione</h2>
+    <div class="col mt-3">
+      <p class="text-blue fs-5">{{ ricetta?.preparazione }}</p>
+    </div>
+  </div>
+</div>
